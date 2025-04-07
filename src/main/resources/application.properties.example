@@ -1,0 +1,4 @@
+spring.application.name=backend
+spring.data.mongodb.uri=MONGODB_CONNECTION_STRING/DB_NAME
+jwtSecret=YOUR_JWT_SECRET_KEY
+jwtExpirationMs=JWT_EXPIRATION_TIME_IN_MS

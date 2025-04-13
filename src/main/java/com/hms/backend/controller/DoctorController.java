@@ -4,6 +4,7 @@ import com.hms.backend.model.Appointment;
 import com.hms.backend.model.Patient;
 import com.hms.backend.payload.request.CreatePrescriptionRequest;
 import com.hms.backend.service.DoctorService;
+import com.hms.backend.service.ReceptionistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,14 @@ public class DoctorController {
     @Autowired
     DoctorService doctorService;
 
+    @Autowired
+    ReceptionistService receptionistService;
+
     // Patient Management APIs
+    @GetMapping("/patients")
+    public ResponseEntity<List<Patient>> viewAllPatients() {
+        return ResponseEntity.ok(receptionistService.viewAllPatients());
+    }
 
     @GetMapping("/patients/{id}")
     public ResponseEntity<Patient> viewPatient(@PathVariable String id) {

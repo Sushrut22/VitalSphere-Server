@@ -2,10 +2,13 @@ package com.hms.backend.controller;
 
 import com.hms.backend.model.Appointment;
 import com.hms.backend.model.Bill;
+import com.hms.backend.model.Doctor;
 import com.hms.backend.model.Patient;
 import com.hms.backend.payload.request.AddPatientAppointmentRequest;
 import com.hms.backend.payload.request.AddPatientRequest;
 import com.hms.backend.payload.request.CreateBillRequest;
+import com.hms.backend.service.AdminService;
+import com.hms.backend.service.DoctorService;
 import com.hms.backend.service.ReceptionistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class ReceptionistController {
 
     @Autowired
     ReceptionistService receptionistService;
+
+    @Autowired
+    AdminService adminService;
 
     // Patient Management APIs
 
@@ -87,5 +93,11 @@ public class ReceptionistController {
     public ResponseEntity<?> createBill(@Valid @RequestBody CreateBillRequest createBillRequest) {
         receptionistService.createBill(createBillRequest);
         return new ResponseEntity<>("Bill created successfully!", HttpStatus.CREATED);
+    }
+
+    // Using this Receptionist will be able to view all Doctors associated with the Hospital
+    @GetMapping("/doctors")
+    public ResponseEntity<List<Doctor>> viewAllDoctors() {
+        return ResponseEntity.ok(adminService.viewAllDoctors());
     }
 }
